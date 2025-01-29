@@ -9,25 +9,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-      - name: Verify Directory Structure
-        run: |
-          echo "Listing files in the root directory"
-          ls -alh
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'  # Use the appropriate Node.js version here
-      - name: Install Dependencies (If package.json is found)
-        run: |
-          if [ -f "frontend/package.json" ]; then
-            cd frontend
-            npm install
-          elif [ -f "package.json" ]; then
-            npm install
-          else
-            echo "package.json not found. Skipping npm install."
-            exit 1
-          fi
       - name: Lint HTML and CSS Code
         run: |
           npx htmlhint "**/*.html"
