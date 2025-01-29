@@ -17,9 +17,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'  # Use the appropriate Node.js version here
-      - name: Install Dependencies
+      - name: Install Dependencies (If package.json is found)
         run: |
-          if [ -f "package.json" ]; then
+          if [ -f "frontend/package.json" ]; then
+            cd frontend
+            npm install
+          elif [ -f "package.json" ]; then
             npm install
           else
             echo "package.json not found. Skipping npm install."
