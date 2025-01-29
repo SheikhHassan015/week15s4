@@ -2,18 +2,24 @@ name: wf-ci-development
 on:
   pull_request:
     branches:
-      -develop
+      - develop
 jobs:
   ci-development-jobs:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      -name: checkout Repo
-       uses: actions/checkout@v4
-      -name: Lint HTML and CSS Code
-       run: |
-         npx htmlhint "**/*.html"
-         npx styleslint "**/*.css"
-      -name: Test Build
-       run: |
-         npx parcel build "./src/index.html" --dist-dir "./dist"--public-url "./"
-         
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Use the appropriate Node.js version here
+      - name: Install Dependencies
+        run: |
+          npm install
+      - name: Lint HTML and CSS Code
+        run: |
+          npx htmlhint "**/*.html"
+          npx stylelint "**/*.css"
+      - name: Test Build
+        run: |
+          npx parcel build "./src/index.html" --dist-dir "./dist" --public-url "./"
